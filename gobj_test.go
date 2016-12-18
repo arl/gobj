@@ -11,13 +11,22 @@ func check(t *testing.T, e error) {
 func TestLoadOBJFile(t *testing.T) {
 	obj, err := Load("testdata/test.obj")
 	check(t, err)
-	nfo := obj.DumpInfo()
 
-	want := `num vertices : 897
-num triangles: 1335
-bounding box : x[0.000252, 56.501854], y[-0.010531, 3.000328], z[-0.001253, 32.506012]
-`
-	if want != nfo {
-		t.Fatalf("want:\n%s\ngot:\n%s\n", want, nfo)
+	numVerts := len(obj.Verts())
+	numPolys := len(obj.Polys())
+	bb := obj.AABB()
+
+	if numVerts != 897 {
+		t.Fatalf("want 897 vertices, got %d", numVerts)
+	}
+	if numPolys != 1335 {
+		t.Fatalf("want 1335 polygons, got %d", numPolys)
+	}
+	wantAABB := AABB{0.000252, 56.501854,
+		-0.010531, 3.000328,
+		-0.001253, 32.506012,
+	}
+	if bb != wantAABB {
+		t.Fatalf("want aabb %v, got %v", wantAABB, bb)
 	}
 }
