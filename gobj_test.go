@@ -12,8 +12,8 @@ func TestLoadOBJFile(t *testing.T) {
 	obj, err := Load("testdata/test.obj")
 	check(t, err)
 
-	numVerts := len(obj.Vertices())
-	numPolys := len(obj.Polygons())
+	numVerts := len(obj.Verts())
+	numPolys := len(obj.Polys())
 	bb := obj.AABB()
 
 	if numVerts != 897 {

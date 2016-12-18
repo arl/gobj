@@ -145,17 +145,17 @@ func (bb AABB) String() string {
 }
 
 type OBJFile struct {
-	vertices []Vertex
-	polygons []Polygon
-	aabb     AABB
+	verts []Vertex
+	polys []Polygon
+	aabb  AABB
 }
 
-func (of OBJFile) Vertices() []Vertex {
-	return of.vertices
+func (of OBJFile) Verts() []Vertex {
+	return of.verts
 }
 
-func (of OBJFile) Polygons() []Polygon {
-	return of.polygons
+func (of OBJFile) Polys() []Polygon {
+	return of.polys
 }
 
 func (of OBJFile) AABB() AABB {
@@ -169,7 +169,7 @@ func (of *OBJFile) parseVertex(kw string, data []string) error {
 		return err
 	}
 	// discard the Z coordinate
-	of.vertices = append(of.vertices, v)
+	of.verts = append(of.verts, v)
 	return nil
 }
 
@@ -182,18 +182,18 @@ func (of *OBJFile) parseFace(kw string, data []string) error {
 		if err != nil {
 			return fmt.Errorf("invalid vertex coordinate value \"%s\"", s)
 		}
-		p = append(p, of.vertices[vidx-1])
+		p = append(p, of.verts[vidx-1])
 	}
 
 	// extend the mesh bounding box with the polygon's one
 	of.aabb.extend(p.AABB())
-	of.polygons = append(of.polygons, p)
+	of.polys = append(of.polys, p)
 	return nil
 }
 
 func (of *OBJFile) DumpInfo() string {
-	nfo := fmt.Sprintln("num verts:", len(of.vertices))
-	nfo += fmt.Sprintln("num polys:", len(of.polygons))
+	nfo := fmt.Sprintln("num verts:", len(of.verts))
+	nfo += fmt.Sprintln("num polys:", len(of.polys))
 	nfo += fmt.Sprintln("aabb     :", of.aabb)
 	return nfo
 }
