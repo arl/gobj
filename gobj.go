@@ -73,10 +73,10 @@ func (v *Vertex) Set(s []string) error {
 	return nil
 }
 
-// Polygon represents a polygonal face-element
-//
+// Polygon represents a polygonal face-element.
 type Polygon []Vertex
 
+// Scale applies f scale factor to every coord of the polygon vertices.
 func (p *Polygon) Scale(f float64) {
 	for i := range *p {
 		(*p)[i].Scale(f)
@@ -98,6 +98,7 @@ func (p *Polygon) AABB() AABB {
 	return bb
 }
 
+// AABB is an axis-aligned bounding box.
 type AABB struct {
 	MinX, MaxX float64
 	MinY, MaxY float64
@@ -128,6 +129,7 @@ func (bb *AABB) extend(other AABB) {
 	updateMax(&bb.MaxZ, other.MaxZ)
 }
 
+// Scale scales the axis aligned bounding box.
 func (bb *AABB) Scale(f float64) {
 	bb.MinX *= f
 	bb.MinY *= f
@@ -144,20 +146,25 @@ func (bb AABB) String() string {
 		bb.MinZ, bb.MaxZ)
 }
 
+// OBJFile describes the content of an OBJ geometry definition file.
 type OBJFile struct {
 	verts []Vertex
 	polys []Polygon
 	aabb  AABB
 }
 
+// Verts returns the slice of vertices contained in the OBJ file.
 func (of OBJFile) Verts() []Vertex {
 	return of.verts
 }
 
+// Polys returns the slice of polygons contained in the OBJ file.
 func (of OBJFile) Polys() []Polygon {
 	return of.polys
 }
 
+// AABB returns the minimum axis-aligned bouding box containing every vertices
+// contained in the OBJ file.
 func (of OBJFile) AABB() AABB {
 	return of.aabb
 }
@@ -191,6 +198,7 @@ func (of *OBJFile) parseFace(kw string, data []string) error {
 	return nil
 }
 
+// DumpInfo dumps some informations about the OBJ file.
 func (of *OBJFile) DumpInfo() string {
 	nfo := fmt.Sprintln("num verts:", len(of.verts))
 	nfo += fmt.Sprintln("num polys:", len(of.polys))
