@@ -26,26 +26,6 @@ func NewAABB() AABB {
 	}
 }
 
-func (bb *AABB) extend(other AABB) {
-	// update the min and max for each coord
-	updateMin(&bb.MinX, other.MinX)
-	updateMin(&bb.MinY, other.MinY)
-	updateMin(&bb.MinZ, other.MinZ)
-	updateMax(&bb.MaxX, other.MaxX)
-	updateMax(&bb.MaxY, other.MaxY)
-	updateMax(&bb.MaxZ, other.MaxZ)
-}
-
-// Scale scales the axis aligned bounding box.
-func (bb *AABB) Scale(f float64) {
-	bb.MinX *= f
-	bb.MinY *= f
-	bb.MinZ *= f
-	bb.MaxX *= f
-	bb.MaxY *= f
-	bb.MaxZ *= f
-}
-
 func (bb AABB) String() string {
 	return fmt.Sprintf("x[%f, %f], y[%f, %f], z[%f, %f]",
 		bb.MinX, bb.MaxX,

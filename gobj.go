@@ -6,6 +6,11 @@ import (
 	"strings"
 )
 
+// Polygon represents a polygonal face-element.
+//
+// It is a slice of the indices of the vertices of which the face is made of.
+type Polygon []int32
+
 // OBJFile describes the content of an OBJ geometry definition file.
 type OBJFile struct {
 	verts []Vertex
@@ -48,11 +53,19 @@ func (of *OBJFile) parseFace(kw string, data []string) error {
 		if err != nil {
 			return fmt.Errorf("invalid vertex coordinate value \"%s\"", s)
 		}
-		p = append(p, of.verts[vidx-1])
+		p = append(p, int32(vidx-1))
 	}
 
-	// extend the mesh bounding box with the polygon's one
-	of.aabb.extend(p.AABB())
+	// extend the mesh aabb with the polygon's one
+	for _, vidx := range p {
+		updateMin(&of.aabb.MinX, of.verts[vidx].X())
+		updateMin(&of.aabb.MinY, of.verts[vidx].Y())
+		updateMin(&of.aabb.MinZ, of.verts[vidx].Z())
+		updateMax(&of.aabb.MaxX, of.verts[vidx].X())
+		updateMax(&of.aabb.MaxY, of.verts[vidx].Y())
+		updateMax(&of.aabb.MaxZ, of.verts[vidx].Z())
+	}
+
 	of.polys = append(of.polys, p)
 	return nil
 }
