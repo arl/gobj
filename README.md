@@ -1,4 +1,4 @@
-# gobj: OBJ file format in Go &nbsp;&nbsp; [![GoDoc](http://img.shields.io/badge/go-documentation-blue.svg?style=flat-square)](http://godoc.org/github.com/aurelien-rainone/gobj) [![Build Status](https://travis-ci.org/aurelien-rainone/gobj.svg?branch=master)](https://travis-ci.org/aurelien-rainone/gobj) [![Coverage Status](https://coveralls.io/repos/github/aurelien-rainone/gobj/badge.svg?branch=master)](https://coveralls.io/github/aurelien-rainone/gobj?branch=master)
+# gobj: OBJ file format in Go &nbsp;&nbsp; [![GoDoc](http://img.shields.io/badge/go-documentation-blue.svg?style=flat-square)](http://godoc.org/github.com/arl/gobj) [![Build Status](https://travis-ci.org/arl/gobj.svg?branch=master)](https://travis-ci.org/arl/gobj) [![Coverage Status](https://coveralls.io/repos/github/arl/gobj/badge.svg?branch=master)](https://coveralls.io/github/arl/gobj?branch=master)
 
 **gobj is OBJ geometry file format library written in Go**
 
