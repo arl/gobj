@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"regexp"
 	"strings"
 )
 
@@ -30,6 +31,8 @@ func Decode(r io.Reader) (*OBJFile, error) {
 
 	scanner := bufio.NewScanner(r)
 	for scanner.Scan() {
+		re, _ := regexp.Compile(`\s+`)
+		text := re.ReplaceAllString(scanner.Text(), " ")
 
 		line := strings.Split(scanner.Text(), " ")
 		kw, vals := line[0], line[1:]
