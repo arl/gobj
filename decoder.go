@@ -9,6 +9,8 @@ import (
 	"strings"
 )
 
+var spaceRegexp = regexp.MustCompile(`\s+`)
+
 // Load reads an .obj formatted file and returns a gobj.File.
 //
 // This is a convenience function that calls Decode internally.
@@ -31,8 +33,7 @@ func Decode(r io.Reader) (*OBJFile, error) {
 
 	scanner := bufio.NewScanner(r)
 	for scanner.Scan() {
-		re, _ := regexp.Compile(`\s+`)
-		text := re.ReplaceAllString(scanner.Text(), " ")
+		text := spaceRegexp.ReplaceAllString(scanner.Text(), " ")
 
 		line := strings.Split(scanner.Text(), " ")
 		kw, vals := line[0], line[1:]
