@@ -35,7 +35,7 @@ func Decode(r io.Reader) (*OBJFile, error) {
 	for scanner.Scan() {
 		text := spaceRegexp.ReplaceAllString(scanner.Text(), " ")
 
-		line := strings.Split(scanner.Text(), " ")
+		line := strings.Split(text, " ")
 		kw, vals := line[0], line[1:]
 
 		switch kw {
